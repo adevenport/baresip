@@ -8,7 +8,7 @@
 #include <re.h>
 #include <baresip.h>
 #include "core.h"
-
+#include <stdio.h>
 
 /** Magic number */
 #define MAGIC 0x00511ea3
@@ -457,7 +457,8 @@ int stream_decode(struct stream *s)
 		return ENOENT;
 
 	lostc = lostcalc(&s->rx, hdr.seq);
-
+	if (lostc>20)
+		warning("Dropped %u packets\n", lostc);
 	err2 = handle_rtp(s, &hdr, mb, lostc > 0 ? lostc : 0);
 	mem_deref(mb);
 
