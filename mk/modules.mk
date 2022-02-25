@@ -124,7 +124,7 @@ endif
 USE_X11      := $(shell $(call CC_TEST,X11/Xlib.h))
 USE_ZRTP     := $(shell $(call CC_TEST,libzrtp/zrtp.h))
 USE_VPX      := $(shell $(call CC_TEST,vpx/vp8.h))
-USE_OMX_RPI  := $(shell $(call CC_TEST,bcm_host.h))
+#USE_OMX_RPI  := $(shell $(call CC_TEST,bcm_host.h))
 
 USE_OMX_BELLAGIO := $(shell $(call CC_TEST,OMX_Core.h))
 USE_WEBRTC_AEC   := $(shell \
@@ -188,6 +188,7 @@ MODULES   += ice
 MODULES   += menu
 MODULES   += mwi
 MODULES   += natpmp
+#MODULES   += pcp
 MODULES   += presence
 MODULES   += rtcpsummary
 MODULES   += selfview
