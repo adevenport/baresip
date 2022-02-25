@@ -1,0 +1,11 @@
+sudo apt install cmake libopencore-amrnb-dev libopencore-amrnb0 libsndfile1-dev ffmpeg openssl libasound2-dev
+mkdir baresip-src && cd baresip-src
+git clone https://github.com/adevenport/baresip.git && git clone https://github.com/baresip/re.git && git clone https://github.com/baresip/rem.git
+cd re && make && sudo make install && sudo ldconfig && cd ..
+cd rem && make && sudo make install && sudo ldconfig && cd ..
+cd baresip && make && sudo make install && cd ..
+
+Launch baresip to create default ~/.baresip/config and ~/.baresip/account files
+Modify ~/.baresip/config:
+	Uncomment out "module	amr.so" line to enable AMR
+	
