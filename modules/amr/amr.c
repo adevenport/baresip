@@ -47,7 +47,7 @@
 #endif
 
 /* Narrowband encoder bitrate = 12.2kbps */
-#define NB_MODE MR122
+#define NB_MODE MR475
 /* Wideband encoder bitrate = 23.85 kbps */
 #define WB_MODE 8
 
