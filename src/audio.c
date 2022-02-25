@@ -213,7 +213,6 @@ struct audio {
 /* RFC 6464 */
 static const char *uri_aulevel = "urn:ietf:params:rtp-hdrext:ssrc-audio-level";
 
-
 /**
  * Get the current audio receive buffer length in milliseconds
  *
@@ -1363,13 +1362,15 @@ int audio_alloc(struct audio **ap, struct list *streaml,
 		if (err)
 			goto out;
 	}
-
+	/*
 	err  = sdp_media_set_lattr(stream_sdpmedia(a->strm), true,
 				   "minptime", "%u", minptime);
+	*/
 	err |= sdp_media_set_lattr(stream_sdpmedia(a->strm), true,
 				   "ptime", "%u", ptime);
 	err |= sdp_media_set_lattr(stream_sdpmedia(a->strm), true,
 				   "maxptime", "%u", MAX_PTIME);
+
 	if (err)
 		goto out;
 
@@ -1423,8 +1424,8 @@ int audio_alloc(struct audio **ap, struct list *streaml,
 		if (err)
 			goto out;
 	}
-
-	tx->ptime  = ptime;
+	tx->ptime = 20;
+	
 	tx->ts_ext = tx->ts_base = rand_u16();
 	tx->marker = true;
 
@@ -2265,6 +2266,7 @@ void audio_sdp_attr_decode(struct audio *a)
 	/* This is probably only meaningful for audio data, but
 	   may be used with other media types if it makes sense. */
 	attr = sdp_media_rattr(stream_sdpmedia(a->strm), "ptime");
+	#if 0
 	if (attr) {
 		struct autx *tx = &a->tx;
 		uint32_t ptime_tx = atoi(attr);
@@ -2286,11 +2288,12 @@ void audio_sdp_attr_decode(struct audio *a)
 							    tx->ac->ch,
 							    ptime_tx);
 			}
-
+			
 			sdp_media_set_lattr(stream_sdpmedia(a->strm), true,
 					    "ptime", "%u", ptime_tx);
 		}
 	}
+	#endif
 
 	/* Client-to-Mixer Audio Level Indication */
 	if (a->cfg.level) {
