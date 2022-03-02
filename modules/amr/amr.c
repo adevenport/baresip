@@ -160,7 +160,7 @@ static int encode_update(struct auenc_state **aesp,
 
 #ifdef AMR_NB
 	case 8000:
-		st->enc = Encoder_Interface_init(0);
+		st->enc = Encoder_Interface_init(1);
 		break;
 #endif
 
@@ -473,7 +473,12 @@ static int encode_be(struct auenc_state *st, const int16_t *p_in,
 		++frame_num;
 	}
 
-	*len = (speech_bit_pos+7)/8;
+	if (speech_bit_pos == toc_bit_pos) {
+		*len = 0;
+	} else {
+		*len = (speech_bit_pos+7)/8;
+	}
+	
 	return 0;
 }
 
