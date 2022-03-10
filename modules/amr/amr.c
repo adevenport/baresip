@@ -160,7 +160,7 @@ static int encode_update(struct auenc_state **aesp,
 
 #ifdef AMR_NB
 	case 8000:
-		st->enc = Encoder_Interface_init(1);
+		st->enc = Encoder_Interface_init(ac->dtx_supported);
 		break;
 #endif
 

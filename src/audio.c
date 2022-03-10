@@ -1359,6 +1359,8 @@ int audio_alloc(struct audio **ap, struct list *streaml,
 			minptime = min(minptime, ac->ptime);
 
 		err = add_audio_codec(stream_sdpmedia(a->strm), ac);
+		if (acc)
+			ac->dtx_supported = acc->dtx_supported;
 		if (err)
 			goto out;
 	}

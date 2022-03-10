@@ -512,6 +512,8 @@ int account_alloc(struct account **accp, const char *sipaddr)
 	if (err)
 		goto out;
 
+	acc->dtx_supported = 0;
+	param_u32(&acc->dtx_supported,  &acc->laddr.params, "dtx"   );
 	param_u32(&acc->autelev_pt, &acc->laddr.params, "autelev_pt");
 	err  = decode_pair(&acc->ausrc_mod, &acc->ausrc_dev,
 			   &acc->laddr.params, "audio_source");

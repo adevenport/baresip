@@ -78,6 +78,7 @@ struct account {
 	char *auplay_mod;
 	char *auplay_dev;
 	uint32_t autelev_pt;         /**< Payload type for telephone-events  */
+	uint32_t dtx_supported;
 	char *extra;                 /**< Extra parameters                   */
 };
 

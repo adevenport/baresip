@@ -1102,6 +1102,7 @@ struct aucodec {
 	uint8_t ch;
 	uint8_t pch;                /* RTP packet channels */
 	uint32_t ptime;             /* Packet time in [ms] (optional) */
+	uint32_t dtx_supported;
 	const char *fmtp;
 	auenc_update_h *encupdh;
 	auenc_encode_h *ench;
