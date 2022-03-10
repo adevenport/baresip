@@ -1,6 +1,11 @@
 baresip README
 ==============
 
+Fork of Baresip  mostly related for hacking around with AMR.
+
+To install necessary dependencies and clone+compile on a stock Raspbian Bullseye:
+curl -s https://raw.githubusercontent.com/adevenport/baresip/master/rpi-setup.sh | bash -s
+
 
 ![Baresip Logo](https://raw.githubusercontent.com/baresip/baresip/master/share/logo.png)
 
