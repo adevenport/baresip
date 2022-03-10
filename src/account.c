@@ -120,6 +120,10 @@ static int media_decode(struct account *acc, const struct pl *prm)
 	err |= param_dstr(&acc->mencid,  prm, "mediaenc");
 	err |= param_dstr(&acc->mnatid,  prm, "medianat");
 	err |= param_u32(&acc->ptime,    prm, "ptime"   );
+	err |= param_u32(&acc->txptime,  prm, "txptime"   );
+	if(acc->txptime == 0) {
+		acc->txptime = acc->ptime;
+	}
 
 	return err;
 }

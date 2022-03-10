@@ -1426,7 +1426,10 @@ int audio_alloc(struct audio **ap, struct list *streaml,
 		if (err)
 			goto out;
 	}
-	tx->ptime = 20;
+	if (acc)
+		tx->ptime = acc->txptime;
+	else
+		tx->ptime = ptime;
 	
 	tx->ts_ext = tx->ts_base = rand_u16();
 	tx->marker = true;
@@ -2268,13 +2271,14 @@ void audio_sdp_attr_decode(struct audio *a)
 	/* This is probably only meaningful for audio data, but
 	   may be used with other media types if it makes sense. */
 	attr = sdp_media_rattr(stream_sdpmedia(a->strm), "ptime");
-	#if 0
 	if (attr) {
 		struct autx *tx = &a->tx;
 		uint32_t ptime_tx = atoi(attr);
 
 		if (ptime_tx && ptime_tx != a->tx.ptime
-		    && ptime_tx <= MAX_PTIME) {
+		    && ptime_tx <= MAX_PTIME &&
+		    /* Don't adjust ptime if using asymmetric ptime */
+		    a->tx.ptime == a->rx.ptime) {
 
 			info("audio: peer changed ptime_tx %ums -> %ums\n",
 			     a->tx.ptime, ptime_tx);
@@ -2295,7 +2299,6 @@ void audio_sdp_attr_decode(struct audio *a)
 					    "ptime", "%u", ptime_tx);
 		}
 	}
-	#endif
 
 	/* Client-to-Mixer Audio Level Indication */
 	if (a->cfg.level) {
