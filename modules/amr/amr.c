@@ -55,7 +55,7 @@
   -1 is an invalid frame type. */
 static const int frame_size_nb[16] = {
 	95, 103, 118, 134, 148, 159, 204, 244,
-	40,  -1,  -1,  -1,  -1,  -1,  -1,   0
+	39,  -1,  -1,  -1,  -1,  -1,  -1,   0
 };
 
 #ifdef AMR_WB
