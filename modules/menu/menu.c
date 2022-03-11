@@ -520,6 +520,11 @@ static void ua_event_handler(struct ua *ua, enum ua_event ev,
 			return;
 		}
 
+		if (account_answermode(acc) == ANSWERMODE_REJECT) {
+			(void)call_hangup(call,0,NULL);
+			return;
+		}
+
 		/* set the current User-Agent to the one with the call */
 		menu_selcall(call);
 		menu_stop_play();

@@ -56,6 +56,7 @@ enum answermode {
 	ANSWERMODE_AUTO,
 	ANSWERMODE_EARLY_AUDIO,
 	ANSWERMODE_EARLY_VIDEO,
+	ANSWERMODE_REJECT
 };
 
 /** Defines the DTMF send type */
