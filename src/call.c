@@ -76,7 +76,6 @@ struct call {
 	bool use_rtp;
 };
 
-
 static int send_invite(struct call *call);
 static int send_dtmf_info(struct call *call, char key);
 
@@ -713,6 +712,32 @@ static void call_decode_sip_autoanswer(struct call *call,
 	const struct sip_hdr *hdr;
 	struct pl v;
 	int err = 0;
+	
+	hdr = sip_msg_xhdr(msg, "x-LoggingCSV");
+	if (hdr) {
+		FILE * fh;
+		char * log_str;
+		char * buf = malloc(hdr->val.l + 100);
+		time_t ts = time(NULL);
+		
+		if (buf) {
+			if (!pl_strdup(&log_str, &(hdr->val))) {
+				int bytes_written = sprintf(buf, "%ld,%s\n",ts,log_str);
+				fh = fopen("log.csv", "ab");
+				if (fh) {
+					fwrite(buf, 1, bytes_written, fh);
+					fclose(fh);
+				} else {
+					re_printf("Failed to open!\n");
+				}
+				re_printf("!!!!!!!!!!!!!!!!!!!!!\n");
+				re_printf("%s\n", log_str);
+				re_printf("!!!!!!!!!!!!!!!!!!!!!\n");
+				mem_deref(log_str);
+			}
+			free(buf);
+		}
+	}
 
 	call->adelay = -1;
 
