@@ -118,7 +118,7 @@ static void timeout(void *arg)
 
 		/* error handler must be called from re_main thread */
 		if (st->errh)
-			st->errh(0, "end of file", st->arg);
+			st->errh(1, "end of file", st->arg);
 	}
 }
 
